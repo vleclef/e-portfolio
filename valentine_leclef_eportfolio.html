@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Valentine Leclef, E-Portfolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; background: #fafafa; color: #1a1a2e; line-height: 1.7; }
+    :root { --navy: #1a2744; --blue: #2c4a8c; --accent: #c8a96e; --light: #f4f6fb; --muted: #6b7280; --white: #ffffff; }
+
+    nav { position: fixed; top: 0; width: 100%; z-index: 100; background: rgba(26,39,68,0.97); backdrop-filter: blur(10px); padding: 18px 60px; display: flex; justify-content: space-between; align-items: center; }
+    .nav-logo { font-family: 'Playfair Display', serif; font-size: 1.25rem; font-weight: 700; color: var(--white); letter-spacing: 1px; }
+    .nav-links { display: flex; gap: 36px; list-style: none; }
+    .nav-links a { color: rgba(255,255,255,0.75); text-decoration: none; font-size: 0.85rem; font-weight: 500; letter-spacing: 0.5px; text-transform: uppercase; transition: color .25s; }
+    .nav-links a:hover { color: var(--accent); }
+
+    .hero { min-height: 100vh; background: linear-gradient(135deg, var(--navy) 0%, #2c4a8c 55%, #3a5fa0 100%); display: flex; align-items: center; justify-content: center; padding: 100px 60px 60px; position: relative; overflow: hidden; }
+    .hero::before { content: ''; position: absolute; top: -50%; right: -20%; width: 700px; height: 700px; border-radius: 50%; background: rgba(200,169,110,0.08); pointer-events: none; }
+    .hero-inner { max-width: 1100px; width: 100%; display: flex; align-items: center; gap: 80px; position: relative; z-index: 2; }
+    .hero-photo-wrap { flex-shrink: 0; width: 280px; height: 340px; border-radius: 20px; overflow: hidden; border: 4px solid rgba(200,169,110,0.5); box-shadow: 0 30px 80px rgba(0,0,0,0.4); }
+    .hero-photo-wrap img { width: 100%; height: 100%; object-fit: cover; object-position: top center; }
+    .hero-text { color: var(--white); }
+    .hero-tag { display: inline-block; background: rgba(200,169,110,0.2); border: 1px solid var(--accent); color: var(--accent); font-size: 0.75rem; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; padding: 6px 16px; border-radius: 20px; margin-bottom: 20px; }
+    .hero-name { font-family: 'Playfair Display', serif; font-size: clamp(2.5rem,5vw,4rem); font-weight: 700; line-height: 1.15; margin-bottom: 14px; }
+    .hero-title { font-size: 1.1rem; font-weight: 300; color: rgba(255,255,255,0.75); letter-spacing: 0.5px; margin-bottom: 28px; }
+    .hero-desc { font-size: 0.97rem; color: rgba(255,255,255,0.65); max-width: 500px; margin-bottom: 36px; line-height: 1.8; }
+    .hero-ctas { display: flex; gap: 16px; flex-wrap: wrap; }
+    .btn { display: inline-block; padding: 13px 30px; border-radius: 8px; font-size: 0.9rem; font-weight: 600; text-decoration: none; transition: all .25s; }
+    .btn-primary { background: var(--accent); color: var(--navy); }
+    .btn-primary:hover { background: #dbb97e; transform: translateY(-2px); }
+    .btn-outline { border: 2px solid rgba(255,255,255,0.4); color: var(--white); }
+    .btn-outline:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
+    .hero-info { display: flex; gap: 32px; margin-top: 36px; flex-wrap: wrap; }
+    .hero-info-item { display: flex; align-items: center; gap: 10px; }
+    .hero-info-item .icon { width: 36px; height: 36px; border-radius: 50%; background: rgba(255,255,255,0.1); display: flex; align-items: center; justify-content: center; font-size: 1rem; }
+    .hero-info-item span { font-size: 0.82rem; color: rgba(255,255,255,0.65); }
+
+    section { padding: 90px 60px; }
+    .section-inner { max-width: 1100px; margin: 0 auto; }
+    .section-label { display: inline-block; font-size: 0.72rem; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--blue); margin-bottom: 10px; }
+    .section-title { font-family: 'Playfair Display', serif; font-size: clamp(1.8rem,3vw,2.5rem); font-weight: 700; color: var(--navy); margin-bottom: 16px; }
+    .section-divider { width: 50px; height: 3px; background: var(--accent); border-radius: 2px; margin-bottom: 50px; }
+
+    #about { background: var(--white); }
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 70px; align-items: center; }
+    .about-photo { border-radius: 16px; overflow: hidden; height: 460px; box-shadow: 0 20px 60px rgba(44,74,140,0.15); }
+    .about-photo img { width: 100%; height: 100%; object-fit: cover; object-position: center top; }
+    .about-text p { color: var(--muted); font-size: 0.97rem; margin-bottom: 18px; line-height: 1.85; }
+    .about-badges { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 28px; }
+    .badge { padding: 8px 18px; border-radius: 20px; font-size: 0.8rem; font-weight: 600; background: var(--light); color: var(--blue); border: 1px solid #d1daf0; }
+
+    #education { background: var(--light); }
+    .timeline { position: relative; padding-left: 36px; }
+    .timeline::before { content: ''; position: absolute; left: 10px; top: 8px; bottom: 0; width: 2px; background: linear-gradient(to bottom, var(--blue), var(--accent)); }
+    .timeline-item { position: relative; margin-bottom: 44px; }
+    .timeline-dot { position: absolute; left: -30px; top: 6px; width: 14px; height: 14px; border-radius: 50%; background: var(--blue); border: 3px solid var(--white); box-shadow: 0 0 0 2px var(--blue); }
+    .timeline-card { background: var(--white); border-radius: 14px; padding: 26px 28px; box-shadow: 0 4px 20px rgba(0,0,0,0.06); border-left: 4px solid var(--accent); transition: transform .25s, box-shadow .25s; }
+    .timeline-card:hover { transform: translateX(4px); box-shadow: 0 8px 30px rgba(44,74,140,0.12); }
+    .timeline-date { font-size: 0.78rem; font-weight: 600; color: var(--accent); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 6px; }
+    .timeline-title { font-family: 'Playfair Display', serif; font-size: 1.15rem; font-weight: 700; color: var(--navy); margin-bottom: 4px; }
+    .timeline-sub { font-size: 0.88rem; color: var(--blue); font-weight: 500; margin-bottom: 10px; }
+    .timeline-desc { font-size: 0.88rem; color: var(--muted); line-height: 1.75; }
+    .timeline-desc li { margin-left: 18px; margin-bottom: 4px; }
+
+    #experience { background: var(--white); }
+    .exp-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 24px; }
+    .exp-card { background: var(--light); border-radius: 16px; padding: 30px 26px; border-top: 4px solid var(--blue); transition: transform .25s, box-shadow .25s; }
+    .exp-card:hover { transform: translateY(-4px); box-shadow: 0 16px 40px rgba(44,74,140,0.12); }
+    .exp-icon { width: 48px; height: 48px; border-radius: 12px; background: var(--blue); color: var(--white); display: flex; align-items: center; justify-content: center; font-size: 1.4rem; margin-bottom: 18px; }
+    .exp-date { font-size: 0.75rem; color: var(--accent); font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; }
+    .exp-role { font-family: 'Playfair Display', serif; font-size: 1.05rem; font-weight: 700; color: var(--navy); margin-bottom: 4px; }
+    .exp-company { font-size: 0.85rem; color: var(--blue); font-weight: 500; margin-bottom: 12px; }
+    .exp-desc { font-size: 0.85rem; color: var(--muted); line-height: 1.7; }
+
+    #skills { background: var(--navy); }
+    #skills .section-title, #skills .section-label { color: var(--white); }
+    .skills-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 36px; }
+    .skills-col h3 { font-family: 'Playfair Display', serif; font-size: 1.1rem; color: var(--accent); margin-bottom: 20px; }
+    .lang-badges { display: flex; flex-direction: column; gap: 12px; }
+    .lang-badge { display: flex; align-items: center; justify-content: space-between; background: rgba(255,255,255,0.06); border-radius: 10px; padding: 12px 16px; border: 1px solid rgba(255,255,255,0.1); }
+    .lang-name { font-size: 0.88rem; color: var(--white); font-weight: 500; }
+    .lang-level { font-size: 0.75rem; color: var(--accent); font-weight: 600; }
+    .soft-badges { display: flex; flex-wrap: wrap; gap: 10px; }
+    .soft-badge { padding: 8px 16px; border-radius: 20px; font-size: 0.8rem; font-weight: 600; background: rgba(200,169,110,0.15); color: var(--accent); border: 1px solid rgba(200,169,110,0.3); }
+
+    #explort { background: var(--light); }
+    .explort-inner { background: linear-gradient(135deg, var(--navy) 0%, var(--blue) 100%); border-radius: 24px; overflow: hidden; display: grid; grid-template-columns: 1fr 1fr; }
+    .explort-text { padding: 60px 50px; color: var(--white); }
+    .explort-tag { display: inline-block; background: rgba(200,169,110,0.25); color: var(--accent); font-size: 0.72rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; padding: 6px 14px; border-radius: 20px; border: 1px solid rgba(200,169,110,0.4); margin-bottom: 20px; }
+    .explort-title { font-family: 'Playfair Display', serif; font-size: 2rem; font-weight: 700; margin-bottom: 16px; line-height: 1.2; }
+    .explort-desc { font-size: 0.93rem; color: rgba(255,255,255,0.72); line-height: 1.8; margin-bottom: 28px; }
+    .explort-points { list-style: none; }
+    .explort-points li { display: flex; align-items: flex-start; gap: 12px; font-size: 0.88rem; color: rgba(255,255,255,0.75); margin-bottom: 12px; }
+    .explort-points li::before { content: 'x'; color: var(--accent); flex-shrink: 0; margin-top: 2px; }
+    .explort-photo { overflow: hidden; }
+    .explort-photo img { width: 100%; height: 100%; object-fit: cover; object-position: center; }
+
+    #highlights { background: var(--white); }
+    .highlights-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; }
+    .highlights-photo { border-radius: 16px; overflow: hidden; height: 400px; box-shadow: 0 20px 60px rgba(44,74,140,0.15); }
+    .highlights-photo img { width: 100%; height: 100%; object-fit: cover; object-position: top; }
+    .highlight-item { background: var(--light); border-radius: 14px; padding: 24px; margin-bottom: 16px; border-left: 3px solid var(--accent); }
+    .highlight-item h4 { font-family: 'Playfair Display', serif; color: var(--navy); font-size: 1rem; margin-bottom: 6px; }
+    .highlight-item p { font-size: 0.85rem; color: var(--muted); line-height: 1.7; }
+
+    #interests { background: var(--light); }
+    .interests-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 20px; }
+    .interest-card { background: var(--white); border-radius: 16px; padding: 28px 20px; text-align: center; transition: transform .25s, box-shadow .25s; border-bottom: 3px solid transparent; }
+    .interest-card:hover { transform: translateY(-4px); box-shadow: 0 14px 40px rgba(44,74,140,0.1); border-bottom-color: var(--accent); }
+    .interest-icon { font-size: 2.4rem; margin-bottom: 12px; display: block; }
+    .interest-title { font-weight: 600; color: var(--navy); font-size: 0.92rem; margin-bottom: 6px; }
+    .interest-desc { font-size: 0.8rem; color: var(--muted); line-height: 1.6; }
+
+    #contact { background: var(--navy); }
+    #contact .section-title, #contact .section-label { color: var(--white); }
+    .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: start; }
+    .contact-items { display: flex; flex-direction: column; gap: 18px; }
+    .contact-item { display: flex; align-items: center; gap: 16px; }
+    .contact-icon { width: 46px; height: 46px; border-radius: 12px; background: rgba(255,255,255,0.08); display: flex; align-items: center; justify-content: center; font-size: 1.2rem; flex-shrink: 0; }
+    .contact-item-text { font-size: 0.9rem; color: rgba(255,255,255,0.8); }
+    .contact-item-text span { display: block; font-size: 0.75rem; color: var(--accent); font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 2px; }
+    .contact-photo { border-radius: 16px; overflow: hidden; height: 480px; box-shadow: 0 20px 60px rgba(0,0,0,0.4); }
+    .contact-photo img { width: 100%; height: 100%; object-fit: cover; object-position: top center; }
+
+    footer { background: #111827; text-align: center; padding: 20px; color: rgba(255,255,255,0.3); font-size: 0.8rem; }
+
+    @media (max-width: 900px) {
+      nav { padding: 16px 28px; }
+      .nav-links { display: none; }
+      section { padding: 60px 28px; }
+      .hero { padding: 100px 28px 60px; }
+      .hero-inner { flex-direction: column; gap: 40px; text-align: center; }
+      .hero-ctas { justify-content: center; }
+      .hero-info { justify-content: center; }
+      .hero-photo-wrap { width: 220px; height: 270px; }
+      .about-grid, .highlights-grid, .contact-grid, .explort-inner { grid-template-columns: 1fr; }
+      .exp-grid, .skills-grid { grid-template-columns: 1fr; }
+      .interests-grid { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">Valentine Leclef</div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#education">Education</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#explort">AWEX Explort</a></li>
+    <li><a href="#interests">Interests</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<section class="hero" id="home">
+  <div class="hero-inner">
+    <div class="hero-photo-wrap">
+      <img src="file:///Users/valentineleclef/Downloads/att.F0OGxJ7-5XDs0L9UCka8jfLC3o-vyLFV0v8hIYTFbOE 4.jpg" alt="Valentine Leclef" />
+    </div>
+    <div class="hero-text">
+      <div class="hero-tag">E-Portfolio · 2025</div>
+      <h1 class="hero-name">Valentine<br />Leclef</h1>
+      <p class="hero-title">Business Engineering Student<br />Louvain School of Management · UCLouvain</p>
+      <p class="hero-desc">Ambitious and internationally minded student, selected for the AWEX Explort programme. Combining analytical skills, multicultural adaptability, and a passion for international markets.</p>
+      <div class="hero-ctas">
+        <a href="#about" class="btn btn-primary">Discover My Journey</a>
+        <a href="#contact" class="btn btn-outline">Get in Touch</a>
+      </div>
+      <div class="hero-info">
+        <div class="hero-info-item"><div class="icon">📍</div><span>Louvain-la-Neuve, Belgium</span></div>
+        <div class="hero-info-item"><div class="icon">🌍</div><span>Exchange Year · Colorado, USA</span></div>
+        <div class="hero-info-item"><div class="icon">🎓</div><span>UCLouvain · LSM</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="about">
+  <div class="section-inner">
+    <div class="about-grid">
+      <div class="about-photo">
+        <img src="file:///Users/valentineleclef/Downloads/IMG_1382 2.jpg" alt="Valentine Leclef" />
+      </div>
+      <div class="about-text">
+        <span class="section-label">About Me</span>
+        <h2 class="section-title">Who I Am</h2>
+        <div class="section-divider"></div>
+        <p>I am Valentine Leclef, a Business Engineering student at UCLouvain, currently pursuing my Master's with a specialisation in Financial Engineering at the Louvain School of Management.</p>
+        <p>I thrive at the intersection of data-driven analysis and human connection. Whether it's market research, risk forecasting, or building relationships across cultures, I bring both rigour and adaptability to everything I do.</p>
+        <p>Selected for the <strong>AWEX Explort programme</strong>, I am now putting my skills at the service of Walloon companies looking to expand internationally, bringing an analytical perspective on foreign markets and export strategy.</p>
+        <div class="about-badges">
+          <span class="badge">🇺🇸 Exchange Year · USA</span>
+          <span class="badge">📊 Data Analysis</span>
+          <span class="badge">🌐 International</span>
+          <span class="badge">💡 Financial Engineering</span>
+          <span class="badge">🤝 AWEX Explort</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="education">
+  <div class="section-inner">
+    <span class="section-label">Academic Path</span>
+    <h2 class="section-title">Education</h2>
+    <div class="section-divider"></div>
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-card">
+          <div class="timeline-date">2025, Present</div>
+          <div class="timeline-title">Master in Business Engineering</div>
+          <div class="timeline-sub">Specialisation: Financial Engineering · Louvain School of Management (LSM), Louvain-la-Neuve</div>
+          <p class="timeline-desc">Advanced graduate programme focusing on financial modelling, risk management, quantitative analysis and engineering approaches to complex business challenges.</p>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-card">
+          <div class="timeline-date">2022, 2025</div>
+          <div class="timeline-title">Bachelor in Business Engineering</div>
+          <div class="timeline-sub">Université catholique de Louvain (UCLouvain)</div>
+          <p class="timeline-desc">Three-year programme covering economics, mathematics, statistics, operations research, finance, and management. Developed strong quantitative and analytical foundations.</p>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-card">
+          <div class="timeline-date">2021, 2022</div>
+          <div class="timeline-title">Academic Exchange Year 🇺🇸</div>
+          <div class="timeline-sub">Mesa Ridge High School, Colorado Springs, Colorado, USA</div>
+          <p class="timeline-desc">Full academic year as an exchange student, living with a host family in Colorado Springs. Total immersion in an English-speaking, multicultural environment.</p>
+          <ul class="timeline-desc" style="margin-top:8px;">
+            <li>Developed strong autonomy, resilience and intercultural communication skills</li>
+            <li>Built lasting international connections across cultures</li>
+          </ul>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-card">
+          <div class="timeline-date">2015, 2021</div>
+          <div class="timeline-title">Secondary School Diploma, Mathematics &amp; Sciences</div>
+          <div class="timeline-sub">Institut Saint-Michel, Neufchâteau, Belgium</div>
+          <p class="timeline-desc">Specialisation in mathematics and sciences. Strong analytical foundation that paved the way for engineering studies.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="experience">
+  <div class="section-inner">
+    <span class="section-label">Professional Journey</span>
+    <h2 class="section-title">Work Experience</h2>
+    <div class="section-divider"></div>
+    <div class="exp-grid">
+      <div class="exp-card">
+        <div class="exp-icon">🥪</div>
+        <div class="exp-date">2024, Present</div>
+        <div class="exp-role">Fast Food Team Member</div>
+        <div class="exp-company">SOS Sandwich, Louvain-la-Neuve</div>
+        <p class="exp-desc">Active team member in a busy fast-food environment on campus. Developing customer service, teamwork and time-management skills while balancing academic commitments.</p>
+      </div>
+      <div class="exp-card">
+        <div class="exp-icon">🍽️</div>
+        <div class="exp-date">2020, 2025</div>
+        <div class="exp-role">Waitress &amp; Floor Manager</div>
+        <div class="exp-company">Brasserie Bo Rivage, Neufchâteau, Belgium</div>
+        <p class="exp-desc">Managed dining room operations during peak summer seasons. Coordinated floor staff, ensured seamless service delivery, and handled customer relations, developing strong leadership and organisational skills.</p>
+      </div>
+      <div class="exp-card">
+        <div class="exp-icon">🍫</div>
+        <div class="exp-date">2020, 2021</div>
+        <div class="exp-role">Production Assistant</div>
+        <div class="exp-company">Leonidas, Namur, Belgium</div>
+        <p class="exp-desc">Participated in the production and packaging processes at the renowned Belgian chocolatier Leonidas. Gained experience in industrial food production and quality standards.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="skills">
+  <div class="section-inner">
+    <span class="section-label" style="color:var(--accent)">Competencies</span>
+    <h2 class="section-title">Skills &amp; Languages</h2>
+    <div class="section-divider"></div>
+    <div class="skills-grid">
+      <div class="skills-col">
+        <h3>Technical Skills</h3>
+        <div class="soft-badges">
+          <span class="soft-badge">Microsoft Excel</span>
+          <span class="soft-badge">Word &amp; PowerPoint</span>
+          <span class="soft-badge">Python</span>
+          <span class="soft-badge">R</span>
+          <span class="soft-badge">Data Analysis &amp; Modelling</span>
+          <span class="soft-badge">Risk Management</span>
+          <span class="soft-badge">Forecasting</span>
+        </div>
+      </div>
+      <div class="skills-col">
+        <h3>Languages</h3>
+        <div class="lang-badges">
+          <div class="lang-badge"><span class="lang-name">🇫🇷 French</span><span class="lang-level">Native</span></div>
+          <div class="lang-badge"><span class="lang-name">🇬🇧 English</span><span class="lang-level">C1, IELTS 7.0</span></div>
+          <div class="lang-badge"><span class="lang-name">🇧🇪 Dutch</span><span class="lang-level">A2, Basic</span></div>
+        </div>
+      </div>
+      <div class="skills-col">
+        <h3>Soft Skills</h3>
+        <div class="soft-badges">
+          <span class="soft-badge">Adaptability</span>
+          <span class="soft-badge">Autonomy</span>
+          <span class="soft-badge">Teamwork</span>
+          <span class="soft-badge">Communication</span>
+          <span class="soft-badge">Leadership</span>
+          <span class="soft-badge">Intercultural Intelligence</span>
+          <span class="soft-badge">Analytical Thinking</span>
+          <span class="soft-badge">Problem Solving</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="explort">
+  <div class="section-inner">
+    <span class="section-label">International Programme</span>
+    <h2 class="section-title">AWEX Explort Programme</h2>
+    <div class="section-divider"></div>
+    <div class="explort-inner">
+      <div class="explort-text">
+        <div class="explort-tag">Selected Participant · 2025</div>
+        <h3 class="explort-title">Representing Wallonia<br />on the World Stage</h3>
+        <p class="explort-desc">I have been selected for the <strong>Explort programme</strong> by the Walloon Export and Foreign Investment Agency (<strong>AWEX</strong>), a prestigious initiative connecting talented students with Walloon companies looking to develop or strengthen their presence on international markets.</p>
+        <ul class="explort-points">
+          <li>Placed at the service of a Walloon company for international market development</li>
+          <li>Conducting market research, risk analysis, and export prospection</li>
+          <li>Leveraging my multicultural experience and analytical background</li>
+          <li>Contributing to the international strategy of Belgian businesses</li>
+          <li>Part of a selective cohort of high-achieving management students</li>
+        </ul>
+      </div>
+      <div class="explort-photo">
+        <img src="file:///Users/valentineleclef/Downloads/IMG_0754.JPG" alt="AWEX Explort Programme" />
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="highlights">
+  <div class="section-inner">
+    <span class="section-label">Key Moments</span>
+    <h2 class="section-title">Highlights</h2>
+    <div class="section-divider"></div>
+
+    <div class="highlights-grid" style="margin-bottom:50px;">
+      <div class="highlights-photo">
+        <img src="file:///Users/valentineleclef/Downloads/ad88861621ceb6794f0c5c657835d66b.JPEG" alt="UCLouvain 600th Anniversary" />
+      </div>
+      <div style="display:flex;flex-direction:column;justify-content:center;">
+        <div class="highlight-item">
+          <h4>🎓 UCLouvain, 600th Anniversary Ceremony</h4>
+          <p>Proud to have been part of the ceremony marking 600 years of the Université catholique de Louvain, one of Europe's oldest and most prestigious universities. A defining milestone in my academic journey.</p>
+        </div>
+        <div class="highlight-item">
+          <h4>📊 Business Engineering, LSM</h4>
+          <p>Admitted to the Master in Business Engineering with a specialisation in Financial Engineering at the Louvain School of Management, focused on quantitative finance, risk modelling, and advanced business analytics.</p>
+        </div>
+      </div>
+    </div>
+
+    <div style="background:linear-gradient(135deg,#1a2744 0%,#2c4a8c 100%);border-radius:24px;overflow:hidden;">
+      <div style="display:grid;grid-template-columns:1fr 1fr;">
+        <div style="padding:50px 48px;color:white;">
+          <div style="display:inline-block;background:rgba(200,169,110,0.2);border:1px solid #c8a96e;color:#c8a96e;font-size:0.72rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:6px 14px;border-radius:20px;margin-bottom:20px;">2021, 2022 · Colorado, USA 🇺🇸</div>
+          <h3 style="font-family:'Playfair Display',serif;font-size:1.9rem;font-weight:700;margin-bottom:16px;line-height:1.25;">A Year That<br/>Changed Everything</h3>
+          <p style="font-size:0.93rem;color:rgba(255,255,255,0.72);line-height:1.85;margin-bottom:20px;">At 18, I made the decision to leave Belgium alone and spend a full academic year at <strong style="color:white;">Mesa Ridge High School</strong> in Colorado Springs, living with an American host family, far from everything familiar.</p>
+          <p style="font-size:0.93rem;color:rgba(255,255,255,0.72);line-height:1.85;margin-bottom:20px;">Immersed in an entirely English-speaking environment, I attended classes alongside American students, joined school activities, and navigated daily life in a culture very different from my own. It was challenging, enriching, and ultimately transformative.</p>
+          <p style="font-size:0.93rem;color:rgba(255,255,255,0.72);line-height:1.85;margin-bottom:28px;">This experience gave me far more than language fluency, it built my <strong style="color:white;">independence</strong>, my ability to connect with people from all backgrounds, and a genuine curiosity for the world. It is the foundation of everything I bring to international contexts today.</p>
+          <div style="display:flex;flex-wrap:wrap;gap:10px;">
+            <span style="padding:7px 16px;border-radius:20px;font-size:0.8rem;font-weight:600;background:rgba(200,169,110,0.15);color:#c8a96e;border:1px solid rgba(200,169,110,0.3);">Full Academic Immersion</span>
+            <span style="padding:7px 16px;border-radius:20px;font-size:0.8rem;font-weight:600;background:rgba(200,169,110,0.15);color:#c8a96e;border:1px solid rgba(200,169,110,0.3);">Host Family Experience</span>
+            <span style="padding:7px 16px;border-radius:20px;font-size:0.8rem;font-weight:600;background:rgba(200,169,110,0.15);color:#c8a96e;border:1px solid rgba(200,169,110,0.3);">Mesa Ridge Grizzlies</span>
+            <span style="padding:7px 16px;border-radius:20px;font-size:0.8rem;font-weight:600;background:rgba(200,169,110,0.15);color:#c8a96e;border:1px solid rgba(200,169,110,0.3);">Colorado Springs</span>
+          </div>
+        </div>
+        <div style="background:linear-gradient(135deg,#2c4a8c 0%,#3a5fa0 100%);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:50px 40px;text-align:center;">
+          <img src="file:///Users/valentineleclef/Downloads/N6Uwmk-8_400x400.jpg" alt="Mesa Ridge Grizzlies" style="width:160px;height:160px;object-fit:contain;margin-bottom:16px;" />
+          <div style="font-family:'Playfair Display',serif;font-size:1.3rem;color:white;font-weight:600;margin-bottom:6px;">Mesa Ridge High School</div>
+          <div style="font-size:0.85rem;color:rgba(255,255,255,0.6);margin-bottom:30px;">Colorado Springs, Colorado, USA</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;width:100%;">
+            <div style="background:rgba(255,255,255,0.08);border-radius:12px;padding:18px;border:1px solid rgba(255,255,255,0.1);">
+              <div style="font-size:1.8rem;font-weight:700;color:#c8a96e;">1</div>
+              <div style="font-size:0.78rem;color:rgba(255,255,255,0.6);margin-top:4px;">Full Year Abroad</div>
+            </div>
+            <div style="background:rgba(255,255,255,0.08);border-radius:12px;padding:18px;border:1px solid rgba(255,255,255,0.1);">
+              <div style="font-size:1.8rem;font-weight:700;color:#c8a96e;">C1</div>
+              <div style="font-size:0.78rem;color:rgba(255,255,255,0.6);margin-top:4px;">English Level</div>
+            </div>
+            <div style="background:rgba(255,255,255,0.08);border-radius:12px;padding:18px;border:1px solid rgba(255,255,255,0.1);">
+              <div style="font-size:1.8rem;font-weight:700;color:#c8a96e;">🇺🇸</div>
+              <div style="font-size:0.78rem;color:rgba(255,255,255,0.6);margin-top:4px;">Colorado Springs</div>
+            </div>
+            <div style="background:rgba(255,255,255,0.08);border-radius:12px;padding:18px;border:1px solid rgba(255,255,255,0.1);">
+              <div style="font-size:1.8rem;font-weight:700;color:#c8a96e;">🌎</div>
+              <div style="font-size:0.78rem;color:rgba(255,255,255,0.6);margin-top:4px;">Intercultural Skills</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="interests">
+  <div class="section-inner">
+    <span class="section-label">Beyond Academics</span>
+    <h2 class="section-title">Interests &amp; Hobbies</h2>
+    <div class="section-divider"></div>
+    <div class="interests-grid">
+      <div class="interest-card"><span class="interest-icon">✈️</span><div class="interest-title">Travel &amp; Exploration</div><p class="interest-desc">Passionate about discovering new cultures, Brazil, Thailand, Tanzania, across Europe and beyond.</p></div>
+      <div class="interest-card"><span class="interest-icon">🏐</span><div class="interest-title">Volleyball</div><p class="interest-desc">Team sport that reflects my love for collaboration, strategy and staying active.</p></div>
+      <div class="interest-card"><span class="interest-icon">🎾</span><div class="interest-title">Tennis</div><p class="interest-desc">A sport that demands focus, discipline and perseverance, qualities I carry into all areas of my life.</p></div>
+      <div class="interest-card"><span class="interest-icon">🏃</span><div class="interest-title">Running</div><p class="interest-desc">Running clears my mind and builds endurance. A daily habit that fuels my energy.</p></div>
+      <div class="interest-card"><span class="interest-icon">🤝</span><div class="interest-title">Youth Movements</div><p class="interest-desc">Active involvement in youth organisations, developing leadership and civic engagement.</p></div>
+      <div class="interest-card"><span class="interest-icon">🌐</span><div class="interest-title">International Affairs</div><p class="interest-desc">Fascinated by global markets, geopolitics and cross-cultural dynamics, naturally aligned with my studies.</p></div>
+      <div class="interest-card"><span class="interest-icon">📊</span><div class="interest-title">Data &amp; Finance</div><p class="interest-desc">Enjoy exploring datasets, financial models and market trends, turning numbers into meaningful insights.</p></div>
+      <div class="interest-card"><span class="interest-icon">🍫</span><div class="interest-title">Belgian Culture</div><p class="interest-desc">Proud of my Belgian roots, from the culinary heritage to the vibrant student life of Louvain-la-Neuve.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="section-inner">
+    <div class="contact-grid">
+      <div>
+        <span class="section-label" style="color:var(--accent)">Let's Connect</span>
+        <h2 class="section-title">Get in Touch</h2>
+        <div class="section-divider"></div>
+        <div class="contact-items">
+          <div class="contact-item"><div class="contact-icon">📞</div><div class="contact-item-text"><span>Phone</span>+32 470 72 07 27</div></div>
+          <div class="contact-item"><div class="contact-icon">✉️</div><div class="contact-item-text"><span>Email</span>vleclef@outlook.com</div></div>
+          <div class="contact-item"><div class="contact-icon">💼</div><div class="contact-item-text"><span>LinkedIn</span>VALENTINE-LECLEF</div></div>
+          <div class="contact-item"><div class="contact-icon">📍</div><div class="contact-item-text"><span>Location</span>Louvain-la-Neuve, Belgium</div></div>
+        </div>
+      </div>
+      <div class="contact-photo">
+        <img src="file:///Users/valentineleclef/Downloads/IMG_1382 3.JPG" alt="Valentine Leclef" />
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer><p>© 2025 Valentine Leclef</p></footer>
+
+</body>
+</html>
